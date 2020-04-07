@@ -48,13 +48,13 @@ export default {
       '@nuxtjs/firebase',
       {
         config: {
-          apiKey: "AIzaSyCOM0k7nBb-rq3YucTi668wt2XYLq81DQ0",
-          authDomain: "codenames-f9999.firebaseapp.com",
-          databaseURL: "https://codenames-f9999.firebaseio.com",
-          projectId: "codenames-f9999",
-          storageBucket: "codenames-f9999.appspot.com",
-          messagingSenderId: "510955766067",
-          appId: "1:510955766067:web:d7629b6caf3eead0987e46"
+          apiKey: process.env.FIREBASE_apiKey,
+          authDomain: process.env.FIREBASE_authDomain,
+          databaseURL: process.env.FIREBASE_databaseURL,
+          projectId: process.env.FIREBASE_projectId,
+          storageBucket: process.env.FIREBASE_storageBucket,
+          messagingSenderId: process.env.FIREBASE_messagingSenderId,
+          appId: process.env.FIREBASE_appId
         },
         services: {
           firestore: true // Just as example. Can be any other service.
