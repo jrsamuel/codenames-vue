@@ -17,9 +17,11 @@
     "firebase": "^7.13.2",
     "lodash": "^4.17.15",
     "nuxt": "^2.0.0",
-    "raw-loader": "^4.0.0"
+    "raw-loader": "^4.0.0",
+    "vue-swal": "^1.0.0"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/tailwindcss": "^1.0.0"
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div
     :class="classObj"
-    class="border justify-center h-24 w-full flex items-center"
+    class="border justify-center w-full h-24 flex items-center"
     @click="cardGuessed"
   >
-    {{ cardData.word }}
+    <span class="text-xl font-medium"> {{ cardData.word }} </span>
   </div>
 </template>
 
@@ -41,7 +41,7 @@ export default {
           {
             "text-blue-600": this.cardData.color == "blue",
             "text-red-600": this.cardData.color == "red",
-            "text-gray-500": this.cardData.color == "neutral",
+            "text-gray-600": this.cardData.color == "neutral",
             "text-black": this.cardData.color == "assassin"
           }
         ]

@@ -1,35 +1,31 @@
 <template>
-  <div class="container">
-    <div>
+  <div>
+    <div class="flex flex-col h-full content-around align-around mt-56">
       <logo />
-      <h1 class="title">
-        codenames
+      <h1 class="text-5xl text-center mt-6">
+        Codenames
       </h1>
-      <h2 class="subtitle">
-        My cat&#39;s pajamas Nuxt.js project
+      <h2 class="text-2xl text-center">
+        Codenames with a digital gameboard
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div class="flex justify-evenly mt-6">
+        <nuxt-link :to="{ name: 'game', params: { newGame: true } }">
+          <button class="button rounded bg-green-600 text-white px-2 py-1">
+            Start New Game
+          </button>
+        </nuxt-link>
+        <nuxt-link to="/game">
+          <button class="button rounded bg-green-600 text-white px-2 py-1">
+            Join Game In Progress
+          </button>
+        </nuxt-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Logo from "~/components/Logo.vue"
 
 export default {
   components: {
@@ -44,34 +40,4 @@ export default {
   @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>

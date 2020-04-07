@@ -1,9 +1,9 @@
 <template>
-  <div class="container w-1/2 mx-auto">
+  <div class="w-4/5 mx-auto">
     <p class="text-3xl text-center my-8">CODENAMES</p>
 
-    <div class="flex justify-between mb-8">
-      <div id="score">
+    <div class="flex justify-between mb-8 text-lg">
+      <div id="score" class="text-lg">
         <span>Cards Left: </span>
         <span class="text-red-500">{{ redLeft }}</span> -
         <span class="text-blue-500">{{ blueLeft }}</span>
@@ -60,29 +60,49 @@ import { createBoard } from "~/plugins/createBoard.js"
 let boardWatcher
 
 export default {
+  name: "game",
   data() {
     return {
       board: [],
       turn: "red",
       redLeft: 9,
       blueLeft: 8,
+      winner: null,
       view: "guesser"
     }
   },
   components: {
     Card
   },
+  watch: {
+    winner: function(val, oldVal) {
+      if (val) {
+        this.$swal({
+          title: "Congrats!",
+          text: `${val} wins!`,
+          button: false,
+          icon: "success",
+          timer: 5000
+        })
+      }
+    }
+  },
 
   created() {
     this.startWatchers()
+    if (this.$route.params.newGame) {
+      this.createGame()
+    }
   },
   methods: {
     startNew() {
-      let r = confirm("Start A New Game?")
-      if (r == false) {
-        return
-      }
-      this.createGame()
+      this.$swal({
+        title: "Start A New Game?",
+        buttons: true
+      }).then(isConfirmed => {
+        if (!isConfirmed) return
+        this.createGame()
+      })
     },
     createGame() {
       this.view = "guesser"
@@ -91,7 +111,8 @@ export default {
       ref.set({
         turn: "red",
         redLeft: 9,
-        blueLeft: 8
+        blueLeft: 8,
+        winner: null
       })
 
       //stop watcher
@@ -116,6 +137,11 @@ export default {
 
     guess(cardData) {
       cardData.guessed = true
+      let ref = this.$fireStore.collection("gameData").doc("gameStats")
+      let boardRef = ref.collection("board")
+      boardRef
+        .doc("" + cardData.cardNum)
+        .set({ guessed: true }, { merge: true })
 
       // update score
       if (cardData.color == "red") {
@@ -128,17 +154,17 @@ export default {
       // is game over
       if (cardData.color == "assassin") {
         if (this.turn == "red") {
-          alert("Blue Wins!")
+          this.winner = "Blue"
         }
         if (this.turn == "blue") {
-          alert("Red Wins!")
+          this.winner = "Red"
         }
       }
       if (this.redLeft == 0) {
-        alert("Red Wins!")
+        this.winner = "Red"
       }
       if (this.blueLeft == 0) {
-        alert("Blue Wins!")
+        this.winner = "Blue"
       }
 
       // update whose turn it is
@@ -146,19 +172,16 @@ export default {
         this.turn = this.turn == "red" ? "blue" : "red"
       }
       // update board
-      let ref = this.$fireStore.collection("gameData").doc("gameStats")
+
       ref.set(
         {
           blueLeft: this.blueLeft,
           redLeft: this.redLeft,
-          turn: this.turn
+          turn: this.turn,
+          winner: this.winner
         },
         { merge: true }
       )
-      let boardRef = ref.collection("board")
-      boardRef
-        .doc("" + cardData.cardNum)
-        .set({ guessed: true }, { merge: true })
     },
     startWatchers() {
       this.$fireStore
@@ -168,6 +191,7 @@ export default {
           this.turn = doc.data().turn
           this.redLeft = doc.data().redLeft
           this.blueLeft = doc.data().blueLeft
+          this.winner = doc.data().winner
         })
 
       boardWatcher = this.$fireStore
