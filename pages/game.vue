@@ -57,7 +57,6 @@
 <script>
 import Card from "@/components/Card.vue"
 import { createBoard } from "~/plugins/createBoard.js"
-let boardWatcher
 
 export default {
   name: "game",
@@ -75,6 +74,7 @@ export default {
     Card
   },
   watch: {
+    // if winner gets set, pop alert
     winner: function(val, oldVal) {
       if (val) {
         this.$swal({
@@ -89,12 +89,14 @@ export default {
   },
 
   created() {
-    this.startWatchers()
+    this.startWatchers() // starts the FS watchers for game data
     if (this.$route.params.newGame) {
+      // see if new game was passed
       this.createGame()
     }
   },
   methods: {
+    // when new game button is clicked, confirm and start new game
     startNew() {
       this.$swal({
         title: "Start A New Game?",
@@ -104,6 +106,7 @@ export default {
         this.createGame()
       })
     },
+    // clears board and starts new game
     createGame() {
       this.view = "guesser"
 
@@ -115,17 +118,13 @@ export default {
         winner: null
       })
 
-      //stop watcher
-      boardWatcher()
       let newBoard = createBoard() // get new words
       let boardRef = ref.collection("board")
       let batch = this.$fireStore.batch()
       newBoard.forEach(card => {
-        batch.delete(boardRef.doc("" + card.cardNum))
         batch.set(boardRef.doc("" + card.cardNum), card)
       })
       batch.commit()
-      this.startWatchers()
     },
     endTurn() {
       this.turn = this.turn == "red" ? "blue" : "red"
@@ -138,6 +137,7 @@ export default {
     guess(cardData) {
       cardData.guessed = true
       let ref = this.$fireStore.collection("gameData").doc("gameStats")
+      // update guessed status on card picked
       let boardRef = ref.collection("board")
       boardRef
         .doc("" + cardData.cardNum)
@@ -171,8 +171,8 @@ export default {
       if (this.turn != cardData.color) {
         this.turn = this.turn == "red" ? "blue" : "red"
       }
-      // update board
 
+      // update game stats on FS
       ref.set(
         {
           blueLeft: this.blueLeft,
@@ -194,14 +194,12 @@ export default {
           this.winner = doc.data().winner
         })
 
-      boardWatcher = this.$fireStore
-        .collection("gameData/gameStats/board")
-        .onSnapshot(qs => {
-          this.board = []
-          qs.forEach(doc => {
-            this.board.push(doc.data())
-          })
+      this.$fireStore.collection("gameData/gameStats/board").onSnapshot(qs => {
+        this.board = []
+        qs.forEach(doc => {
+          this.board.push(doc.data())
         })
+      })
     }
   }
 }
