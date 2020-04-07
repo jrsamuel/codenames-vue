@@ -1,0 +1,25 @@
+{
+  "name": "codenames",
+  "version": "1.0.0",
+  "description": "My cat&#39;s pajamas Nuxt.js project",
+  "author": "John Samuel",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/firebase": "^5.0.6",
+    "core-js": "2.6.2",
+    "firebase": "^7.13.2",
+    "lodash": "^4.17.15",
+    "nuxt": "^2.0.0",
+    "raw-loader": "^4.0.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^1.0.0"
+  }
+}
