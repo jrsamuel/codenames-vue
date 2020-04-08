@@ -1,17 +1,17 @@
 <template>
   <div class="w-4/5 mx-auto">
-    <p class="text-3xl text-center my-8">CODENAMES</p>
+    <p class="text-3xl text-center text-green-800 tracking-wider my-8">
+      CODENAMES
+    </p>
 
-    <div class="flex justify-between mb-8 text-lg">
-      <div id="score" class="text-lg">
-        <span>Cards Left: </span>
-        <span class="text-red-500">{{ redLeft }}</span> -
-        <span class="text-blue-500">{{ blueLeft }}</span>
-      </div>
-      <div id="turn">
-        <span>{{ turn }}'s turn</span>
-      </div>
-      <button @click="endTurn" class="bg-gray-400 rounded-md py-1 px-2">
+    <div class="flex items-center justify-between mb-8 text-lg">
+      <div class="w-1/5 text-red-500 uppercase">{{ turn }}'s turn</div>
+      <score class="w=1/5" :red="redLeft" :blue="blueLeft"></score>
+
+      <button
+        @click="endTurn"
+        class="w-1/5 bg-gray-200 text-gray-800 border capitalize rounded py-1 px-2"
+      >
         End {{ turn }}'s Turn
       </button>
     </div>
@@ -47,7 +47,10 @@
         />
         <label for="two">Code Giver</label>
       </div>
-      <button @click="startNew" class="text-sm border rounded py-1 px-2">
+      <button
+        @click="startNew"
+        class="text-sm text-gray-800 border rounded py-1 px-2"
+      >
         New Game
       </button>
     </div>
@@ -56,6 +59,7 @@
 
 <script>
 import Card from "@/components/Card.vue"
+import Score from "@/components/Score.vue"
 import { createBoard } from "~/plugins/createBoard.js"
 
 export default {
@@ -71,7 +75,8 @@ export default {
     }
   },
   components: {
-    Card
+    Card,
+    Score
   },
   watch: {
     // if winner gets set, pop alert
