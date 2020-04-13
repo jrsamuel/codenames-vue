@@ -16,6 +16,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   /*
   ** Customize the progress-bar color
   */
@@ -28,7 +31,7 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-swal.js'
+  plugins: ['~/plugins/vue-swal.js', '~/plugins/gameMgr.js'
   ],
   /*
   ** Nuxt.js dev-modules

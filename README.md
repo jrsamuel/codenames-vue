@@ -1,22 +1,15 @@
-# codenames
+# GuessCodes
 
-> My cat&#39;s pajamas Nuxt.js project
+Codenames with a digital gameboard
 
-## Build Setup
+Check it out online at https://www.guesscodes.com/
 
-```bash
-# install dependencies
-$ yarn install
+I tried to copy the great project by https://github.com/jbowens/codenames
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+The frontend is built using Vue, Nuxt, and TailwindCSS.  Backend uses Firebase for DB and Hosting.
 
-# build for production and launch server
-$ yarn build
-$ yarn start
 
-# generate static project
-$ yarn generate
-```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+
+
