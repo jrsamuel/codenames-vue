@@ -1,7 +1,7 @@
 {
-  "name": "codenames",
+  "name": "GuessCodes",
   "version": "1.0.0",
-  "description": "My cat&#39;s pajamas Nuxt.js project",
+  "description": "A digital Codenames Board",
   "author": "John Samuel",
   "private": true,
   "scripts": {

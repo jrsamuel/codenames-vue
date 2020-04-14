@@ -1,7 +1,11 @@
 <template>
   <div class="w-4/5 mx-auto">
-    <p class="text-3xl text-center text-green-800 tracking-wider my-8">
+    <p class="text-3xl text-center text-green-800 tracking-wider mt-8">
       CODENAMES
+    </p>
+    <p class="text-sm text-gray-600 text-center mt-1 mb-8">
+      Game Room Link:
+      <a :href="gameLink">{{ gameLink }}</a>
     </p>
 
     <div class="flex items-center justify-between mb-8 text-lg">
@@ -54,13 +58,9 @@
         New Game
       </button>
     </div>
-    <div class="flex justify-between items-end mt-20">
-      <p class="text-sm text-gray-600">
-        Shareable Game Room Link:
-        <a :href="gameLink">{{ gameLink }}</a>
-      </p>
+    <div class="mt-20">
       <a
-        class="text-xs text-gray-400 underline"
+        class="text-xs text-gray-400 underline mt-20"
         href="https://www.buymeacoffee.com/coderVtwo"
         >Buy The Developer A Coffee</a
       >
